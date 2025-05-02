@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: black;
+  --foreground: white;
 }
 
 @theme inline {
@@ -20,7 +20,138 @@
 }
 
 body {
-  background: var(--background);
+  font-family: 'Gruppo', 'Times New Roman', Times, serif;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  color: var(--foreground);  
+}
+
+ol {
+  font-family: 'Gruppo', 'Times New Roman', Times, serif;
+  margin: 0;
+  padding: 0;
+  background-color: black;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ======================== */
+/* Mission Section */
+/* ======================== */
+
+.mission-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+  gap: 40px;
+}
+
+.mission-left {
+  flex: 1 1 400px;
+  max-width: 600px;
+  text-align: left;
+}
+
+.mission-text-block {
+  margin-top: 20px;
+}
+
+.mission-text {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.mission-right {
+  flex: 1;
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.mission-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Makes the image cover the entire area */
+  display: block;
+}
+
+
+/* ======================== */
+/* Survey Button */
+/* ======================== */
+
+.survey-button {
+  font-size: 1.2rem;
+  padding: 15px 30px;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 50px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 15px;
+}
+
+.survey-button:hover {
+  background-color: #45a049;
+}
+
+/* ======================== */
+/* Survey Section */
+/* ======================== */
+
+.survey-section {
+  padding: 50px 20px;
+  background-color: #ffffff;
+  color: #333;
+  max-width: 800px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+
+/* Centering the checkbox group */
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Styling each Checkbox Label */
+.checkbox-group label {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 5px;
+}
+
+/* Style Checkboxes */
+.checkbox-group input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+/* Add spacing between the last checkbox group and the submit button */
+.checkbox-group:last-child {
+  margin-bottom: 30px;
+}
+
+/* Spacing for headings */
+h2 {
+  margin-bottom: 20px;
+  width: 100%;
 }
