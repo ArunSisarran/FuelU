@@ -3,17 +3,17 @@ import React from 'react';
 const ImageCard = ({ src, alt, name, onClick }) => {
   return (
     <div 
-      className="flex flex-col items-center max-w-xs cursor-pointer transform transition-transform hover:scale-105" 
+      className="flex flex-col items-center w-full cursor-pointer transform transition-transform hover:scale-105" 
       onClick={onClick}
     >
-      <div className="overflow-hidden rounded-lg shadow-md">
+      <div className="overflow-hidden rounded-lg shadow-lg w-full aspect-3/4">
         <img 
           src={src} 
           alt={alt || name} 
-          className="w-full h-64 object-cover"
+          className="w-full h-full object-cover"
         />
       </div>
-      <h3 className="mt-3 text-lg font-medium text-center">{name}</h3>
+      <h3 className="mt-4 text-xl font-semibold text-center px-2">{name}</h3>
     </div>
   );
 };
