@@ -10,7 +10,7 @@ const ImageCard = ({ src, alt, name, onClick }) => {
         <img 
           src={src} 
           alt={alt || name} 
-          className="w-full h-88 object-cover"
+          className="w-full h-64 object-cover"
         />
       </div>
       <h3 className="mt-3 text-lg font-medium text-center">{name}</h3>
