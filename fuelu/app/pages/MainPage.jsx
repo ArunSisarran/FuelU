@@ -15,15 +15,24 @@ export default function MainPage(){
     const [slideDirection, setSlideDirection] = useState('none')
     const [displayItems, setDisplayItems] = useState([])
     const [nextItems, setNextItems] = useState([])
+    const [availableAreas, setAvailableAreas] = useState([])
     const itemsPerPage = 5
     
     const totalPages = Math.ceil(filteredItems.length / itemsPerPage)
     const currentPage = Math.floor(currentIndex / itemsPerPage)
     
     useEffect(() => {
-        const fetchMeals = async () => {
+        const fetchInitialData = async () => {
             try {
                 setLoading(true)
+                
+                const areasResponse = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list')
+                const areasData = await areasResponse.json()
+                if (areasData.meals) {
+                    const areas = areasData.meals.map(meal => meal.strArea)
+                    setAvailableAreas(areas)
+                }
+                
                 const categoriesResponse = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
                 const categoriesData = await categoriesResponse.json()
                 
@@ -53,7 +62,7 @@ export default function MainPage(){
             }
         }
         
-        fetchMeals()
+        fetchInitialData()
     }, [])
 
     useEffect(() => {
@@ -72,8 +81,20 @@ export default function MainPage(){
         
         try {
             setLoading(true)
-            const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`)
-            const data = await response.json()
+            
+            const queryLower = query.toLowerCase();
+            const matchedArea = availableAreas.find(area => area.toLowerCase() === queryLower);
+            
+            let data;
+            if (matchedArea) {
+                console.log("Searching by area:", matchedArea)
+                const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${matchedArea}`)
+                data = await response.json()
+            } else {
+                console.log("Searching by meal name:", query)
+                const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`)
+                data = await response.json()
+            }
             
             if (data.meals) {
                 const searchResults = data.meals.map(meal => ({
@@ -256,6 +277,11 @@ export default function MainPage(){
         <TitleComponent />
         <div className="flex flex-col items-center w-full">
             <SearchBar onSearch={handleSearch}/>
+            
+            {/* Available areas hint */}
+            <div className="mt-4 text-center">
+                <p className="text-slate-400 text-sm">Try searching by cuisine: Canadian, Italian, Chinese, Mexican, Indian, and more!</p>
+            </div>
             <div className="mt-8 w-full relative max-w-7lg px-16">
                 {loading ? (
                     <div className="flex justify-center items-center h-64">

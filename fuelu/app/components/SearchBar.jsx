@@ -18,7 +18,7 @@ const SearchBar = ({onSearch}) =>{
             <div className="relative">
                 <input 
                     type="search" 
-                    placeholder='What food would you like?' 
+                    placeholder='Search meals or cuisine (e.g., "Pasta" or "Canadian)' 
                     className='w-full p-6 rounded-full bg-slate-800'
                     value={searchValue}
                     onChange={handleInputChange}
