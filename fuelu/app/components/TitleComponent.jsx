@@ -4,7 +4,7 @@ import React from 'react'
 
 const TitleComponent = () => {
     return (
-        <div className="py-12 text-center relative">
+        <div className="py-3 text-center relative">
             <div className="absolute top-0 left-1/4 w-20 h-20 bg-blue-500/10 rounded-full blur-3xl" />
             <div className="absolute bottom-0 right-1/4 w-20 h-20 bg-green-500/10 rounded-full blur-3xl" />
             
@@ -18,7 +18,7 @@ const TitleComponent = () => {
                 
                 <div className="w-32 h-1 mx-auto mt-4 bg-gradient-to-r from-blue-400 to-green-400 rounded-full" />
                 
-                <p className="text-xl md:text-2xl text-slate-300 mt-6 font-light tracking-wide">
+                <p className="text-xl md:text-2xl text-slate-300 mt-3 font-light tracking-wide">
                     Fueling Your Health and Success in College
                 </p>
             </div>
