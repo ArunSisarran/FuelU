@@ -16,7 +16,7 @@ export default function MainPage(){
     const [displayItems, setDisplayItems] = useState([])
     const [nextItems, setNextItems] = useState([])
     const [availableAreas, setAvailableAreas] = useState([])
-    const itemsPerPage = 5
+    const itemsPerPage = 4
     
     const totalPages = Math.ceil(filteredItems.length / itemsPerPage)
     const currentPage = Math.floor(currentIndex / itemsPerPage)
@@ -310,7 +310,7 @@ export default function MainPage(){
                         <div className="relative overflow-hidden h-[500px]">
                             {/* Current items sliding out */}
                             <div 
-                                className={`absolute inset-0 grid grid-cols-1 md:grid-cols-5 gap-8 transform
+                                className={`absolute inset-0 grid grid-cols-1 md:grid-cols-4 gap-8 transform
                                     ${isAnimating ? 'transition-all duration-500 ease-in-out' : ''}
                                     ${isAnimating && slideDirection === 'left' ? 'translate-x-full opacity-0' : ''}
                                     ${isAnimating && slideDirection === 'right' ? '-translate-x-full opacity-0' : ''}
@@ -336,7 +336,7 @@ export default function MainPage(){
                             {/* Next items sliding in */}
                             {isAnimating && (
                                 <div 
-                                    className={`absolute inset-0 grid grid-cols-1 md:grid-cols-5 gap-8 transform
+                                    className={`absolute inset-0 grid grid-cols-1 md:grid-cols-4 gap-8 transform
                                         ${slideDirection === 'left' ? 'animate-slide-in-from-left' : ''}
                                         ${slideDirection === 'right' ? 'animate-slide-in-from-right' : ''}
                                     `}
