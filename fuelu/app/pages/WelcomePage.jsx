@@ -36,8 +36,8 @@ function App() {
         <div className="mission-content">
           <TitleComponent />
           <p className="mission-text">
-            Quick, affordable recipes for every craving <br />
-            No stress, just good food, whenever you need it
+            Quick, affordable recipes for every craving. <br />
+            No stress - just good food, whenever you need it.
           </p>
 
           {/* Show only the current feature */}
