@@ -349,6 +349,7 @@ export default function MainPage(){
                                                 src={item.image} 
                                                 alt={item.alt} 
                                                 name={item.name} 
+                                                mealId={item.id}
                                                 onClick={() => handleCardClick(item)}
                                             />
                                         </div>
