@@ -214,10 +214,10 @@ ol li {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(74, 222, 128, 0.5);
+  background: #eac8a7;
   border-radius: 3px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(74, 222, 128, 0.7);
+  background: #eac8a7;
 }
