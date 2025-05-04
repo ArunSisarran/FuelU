@@ -7,8 +7,8 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const features = [
-    "Filter by dietary restrictions",
-    "Sort by prep time or ingredients",
+    "Filter by country or type",
+    "Search for specific ingredients",
     "Find meals that fit your schedule and cravings",
   ];
 
@@ -36,8 +36,8 @@ function App() {
         <div className="mission-content">
           <TitleComponent />
           <p className="mission-text">
-            Quick, affordable recipes for every craving <br />
-            No stress, just good food, whenever you need it
+            Quick, affordable recipes for every craving. <br />
+            No stress - just good food, whenever you need it.
           </p>
 
           {/* Show only the current feature */}

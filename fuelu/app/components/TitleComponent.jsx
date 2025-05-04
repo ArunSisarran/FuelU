@@ -7,7 +7,7 @@ const TitleComponent = () => {
             <h1 className="text-5xl font-bold text-[#e9ded8] drop-shadow-lg">
                 FuelU
             </h1>
-            <p className="text-lg text-[#d1b2a1] mt-2">Fueling Students for Success, One Bite at a Time</p>
+            <p className="text-xl text-[#d1b2a1] mt-2">Fueling Students for Success, One Bite at a Time</p>
         </div>
     )
 }
