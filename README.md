@@ -25,9 +25,9 @@ FuelU is a web app that helps college students cook affordable, approachable mea
 
 ![Recipe Page 1](./screenshots/Recipe1.png)
 
-![Recipe Page 2](./screenshots/recipe1.png)
+![Recipe Page 2](./screenshots/recipe2.png)
 
-![Recipe Page 3](./screenshots/recipe1.png)
+![Recipe Page 3](./screenshots/recipe3.png)
 
 
 ---
