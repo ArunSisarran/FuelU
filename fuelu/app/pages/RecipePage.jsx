@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 const RecipePage = () => {
     const searchParams = useSearchParams()
@@ -65,157 +66,201 @@ const RecipePage = () => {
 
     if (isLoading) {
         return (
-            <div className="flex justify-center items-center min-h-screen">
-                <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-green-500"></div>
+            <div className="relative min-h-screen">
+                {/* Background Image */}
+                <Image
+                    src="/assets/no2.jpg"
+                    alt="Background image"
+                    layout="fill"
+                    objectFit="cover"
+                    quality={100}
+                    priority
+                    className="fixed inset-0 z-0"
+                />
+                <div className="absolute inset-0 bg-black/50 z-10" />
+                <div className="relative z-20 flex justify-center items-center min-h-screen">
+                    <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-[#d1b2a1]"></div>
+                </div>
             </div>
         )
     }
 
     if (error || !mealDetails) {
         return (
-            <div className="flex flex-col items-center justify-center min-h-screen">
-                <p className="text-red-500 text-xl mb-4">{error || 'Something went wrong'}</p>
-                <button 
-                    onClick={() => router.back()}
-                    className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-full"
-                >
-                    Go Back
-                </button>
+            <div className="relative min-h-screen">
+                {/* Background Image */}
+                <Image
+                    src="/assets/no2.jpg"
+                    alt="Background image"
+                    layout="fill"
+                    objectFit="cover"
+                    quality={100}
+                    priority
+                    className="fixed inset-0 z-0"
+                />
+                <div className="absolute inset-0 bg-black/50 z-10" />
+                <div className="relative z-20 flex flex-col items-center justify-center min-h-screen">
+                    <p className="text-red-400 text-xl mb-4">{error || 'Something went wrong'}</p>
+                    <button 
+                        onClick={() => router.back()}
+                        className="bg-[#d1b2a1] hover:bg-[#c19f8e] text-[#3e2e28] px-6 py-2 rounded-full font-semibold"
+                    >
+                        Go Back
+                    </button>
+                </div>
             </div>
         )
     }
 
     return (
-        <div className="min-h-screen bg-slate-900 text-white p-6">
-            <div className="max-w-7xl mx-auto">
-                {/* Back button */}
-                <button 
-                    onClick={() => router.back()}
-                    className="mb-6 bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-full flex items-center gap-2 transition-colors"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
-                    Back to search
-                </button>
+        <div className="relative min-h-screen">
+            {/* Background Image */}
+            <Image
+                src="/assets/no2.jpg"
+                alt="Background image"
+                layout="fill"
+                objectFit="cover"
+                quality={100}
+                priority
+                className="fixed inset-0 z-0"
+            />
+            
+            {/* Content */}
+            <div className="relative z-10">
+                <div className="absolute inset-0 bg-black/50 z-0" />
+                
+                <div className="relative z-20 min-h-screen text-[#e9ded8] p-6">
+                    <div className="max-w-7xl mx-auto">
+                        {/* Back button */}
+                        <button 
+                            onClick={() => router.back()}
+                            className="mb-6 bg-[#3e2e28]/90 border border-[#d1b2a1]/30 hover:bg-[#3e2e28] hover:border-[#d1b2a1]/50 text-[#d1b2a1] px-4 py-2 rounded-full flex items-center gap-2 transition-colors"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                            </svg>
+                            Back to search
+                        </button>
 
-                {/* Title and categories */}
-                <div className="text-center mb-8">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">
-                        {mealDetails.strMeal}
-                    </h1>
-                    <div className="flex justify-center gap-4">
-                        <span className="bg-slate-700 px-4 py-2 rounded-full text-sm">
-                            {mealDetails.strArea} Cuisine
-                        </span>
-                        <span className="bg-slate-700 px-4 py-2 rounded-full text-sm">
-                            {mealDetails.strCategory}
-                        </span>
-                    </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-8">
-                    {/* Left column - Image and ingredients */}
-                    <div>
-                        {/* Meal image */}
-                        <div className="rounded-lg overflow-hidden shadow-xl mb-6">
-                            <img 
-                                src={mealDetails.strMealThumb} 
-                                alt={mealDetails.strMeal}
-                                className="w-full h-auto"
-                            />
-                        </div>
-
-                        {/* Ingredients */}
-                        <div className="bg-slate-800 rounded-lg p-6">
-                            <h2 className="text-2xl font-bold mb-4 text-green-400">Ingredients</h2>
-                            <div className="space-y-3">
-                                {getIngredients(mealDetails).map((item, index) => (
-                                    <div 
-                                        key={index}
-                                        className="flex justify-between items-center bg-slate-700/50 px-4 py-3 rounded-lg"
-                                    >
-                                        <span className="text-lg">{item.ingredient}</span>
-                                        <span className="text-green-400 font-medium">{item.measure}</span>
-                                    </div>
-                                ))}
+                        {/* Title and categories */}
+                        <div className="text-center mb-8">
+                            <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-[#d1b2a1] to-[#e9ded8] bg-clip-text text-transparent">
+                                {mealDetails.strMeal}
+                            </h1>
+                            <div className="flex justify-center gap-4">
+                                <span className="bg-[#3e2e28]/80 px-4 py-2 rounded-full text-sm border border-[#d1b2a1]/20">
+                                    {mealDetails.strArea} Cuisine
+                                </span>
+                                <span className="bg-[#3e2e28]/80 px-4 py-2 rounded-full text-sm border border-[#d1b2a1]/20">
+                                    {mealDetails.strCategory}
+                                </span>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Right column - Instructions */}
-                    <div className="bg-slate-800 rounded-lg p-6">
-                        <h2 className="text-2xl font-bold mb-4 text-green-400">Instructions</h2>
-                        <div className="space-y-4">
-                            {formatInstructions(mealDetails.strInstructions).map((step, index) => (
-                                <div key={index} className="flex gap-4">
-                                    <div className="flex-shrink-0 w-8 h-8 bg-green-600 rounded-full flex items-center justify-center font-bold">
-                                        {index + 1}
-                                    </div>
-                                    <p className="text-lg leading-relaxed">{step}</p>
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {/* Left column - Image and ingredients */}
+                            <div>
+                                {/* Meal image */}
+                                <div className="rounded-lg overflow-hidden shadow-xl mb-6 border border-[#d1b2a1]/20">
+                                    <img 
+                                        src={mealDetails.strMealThumb} 
+                                        alt={mealDetails.strMeal}
+                                        className="w-full h-auto"
+                                    />
                                 </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
 
-                {/* Additional information */}
-                {(mealDetails.strYoutube || mealDetails.strSource || mealDetails.strTags) && (
-                    <div className="mt-8 bg-slate-800 rounded-lg p-6">
-                        <h2 className="text-2xl font-bold mb-4 text-green-400">Additional Information</h2>
-                        <div className="space-y-4">
-                            {mealDetails.strYoutube && (
-                                <div>
-                                    <h3 className="text-lg font-semibold mb-2">Video Tutorial</h3>
-                                    <a 
-                                        href={mealDetails.strYoutube}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-full transition-colors"
-                                    >
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                                            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
-                                        </svg>
-                                        Watch on YouTube
-                                    </a>
-                                </div>
-                            )}
-                            
-                            {mealDetails.strSource && (
-                                <div>
-                                    <h3 className="text-lg font-semibold mb-2">Recipe Source</h3>
-                                    <a 
-                                        href={mealDetails.strSource}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full transition-colors"
-                                    >
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                        </svg>
-                                        View Original Recipe
-                                    </a>
-                                </div>
-                            )}
-                            
-                            {mealDetails.strTags && (
-                                <div>
-                                    <h3 className="text-lg font-semibold mb-2">Tags</h3>
-                                    <div className="flex flex-wrap gap-2">
-                                        {mealDetails.strTags.split(',').map((tag, index) => (
-                                            <span 
+                                {/* Ingredients */}
+                                <div className="bg-[#3e2e28]/90 backdrop-blur-sm border border-[#d1b2a1]/20 rounded-lg p-6">
+                                    <h2 className="text-2xl font-bold mb-4 text-[#d1b2a1]">Ingredients</h2>
+                                    <div className="space-y-3">
+                                        {getIngredients(mealDetails).map((item, index) => (
+                                            <div 
                                                 key={index}
-                                                className="bg-slate-700 px-3 py-1 rounded-full text-sm"
+                                                className="flex justify-between items-center bg-[#d1b2a1]/10 px-4 py-3 rounded-lg"
                                             >
-                                                {tag.trim()}
-                                            </span>
+                                                <span className="text-lg text-[#e9ded8]">{item.ingredient}</span>
+                                                <span className="text-[#d1b2a1] font-medium">{item.measure}</span>
+                                            </div>
                                         ))}
                                     </div>
                                 </div>
-                            )}
+                            </div>
+
+                            {/* Right column - Instructions */}
+                            <div className="bg-[#3e2e28]/90 backdrop-blur-sm border border-[#d1b2a1]/20 rounded-lg p-6">
+                                <h2 className="text-2xl font-bold mb-4 text-[#d1b2a1]">Instructions</h2>
+                                <div className="space-y-4">
+                                    {formatInstructions(mealDetails.strInstructions).map((step, index) => (
+                                        <div key={index} className="flex gap-4">
+                                            <div className="flex-shrink-0 w-8 h-8 bg-[#d1b2a1] rounded-full flex items-center justify-center font-bold text-[#3e2e28]">
+                                                {index + 1}
+                                            </div>
+                                            <p className="text-lg leading-relaxed text-[#e9ded8]">{step}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
+
+                        {/* Additional information */}
+                        {(mealDetails.strYoutube || mealDetails.strSource || mealDetails.strTags) && (
+                            <div className="mt-8 bg-[#3e2e28]/90 backdrop-blur-sm border border-[#d1b2a1]/20 rounded-lg p-6">
+                                <h2 className="text-2xl font-bold mb-4 text-[#d1b2a1]">Additional Information</h2>
+                                <div className="space-y-4">
+                                    {mealDetails.strYoutube && (
+                                        <div>
+                                            <h3 className="text-lg font-semibold mb-2 text-[#e9ded8]">Video Tutorial</h3>
+                                            <a 
+                                                href={mealDetails.strYoutube}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-full transition-colors"
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                                                </svg>
+                                                Watch on YouTube
+                                            </a>
+                                        </div>
+                                    )}
+                                    
+                                    {mealDetails.strSource && (
+                                        <div>
+                                            <h3 className="text-lg font-semibold mb-2 text-[#e9ded8]">Recipe Source</h3>
+                                            <a 
+                                                href={mealDetails.strSource}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-2 bg-[#d1b2a1] hover:bg-[#c19f8e] text-[#3e2e28] px-4 py-2 rounded-full transition-colors font-semibold"
+                                            >
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                                </svg>
+                                                View Original Recipe
+                                            </a>
+                                        </div>
+                                    )}
+                                    
+                                    {mealDetails.strTags && (
+                                        <div>
+                                            <h3 className="text-lg font-semibold mb-2 text-[#e9ded8]">Tags</h3>
+                                            <div className="flex flex-wrap gap-2">
+                                                {mealDetails.strTags.split(',').map((tag, index) => (
+                                                    <span 
+                                                        key={index}
+                                                        className="bg-[#3e2e28]/80 px-3 py-1 rounded-full text-sm border border-[#d1b2a1]/20"
+                                                    >
+                                                        {tag.trim()}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        )}
                     </div>
-                )}
+                </div>
             </div>
         </div>
     )

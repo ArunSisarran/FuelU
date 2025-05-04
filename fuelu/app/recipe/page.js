@@ -5,3 +5,4 @@ export default function Recipe() {
     <RecipePage />
   )
 }
+

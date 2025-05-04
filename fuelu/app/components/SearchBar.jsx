@@ -18,14 +18,14 @@ const SearchBar = ({onSearch}) =>{
             <div className="relative">
                 <input 
                     type="search" 
-                    placeholder='Search meals or cuisine (e.g., "Pasta" or "Canadian)' 
-                    className='w-full p-6 rounded-full bg-slate-800'
+                    placeholder='What food would you like?' 
+                    className='w-full p-6 rounded-full bg-[#3e2e28]/80 border border-[#d1b2a1]/30 text-[#e9ded8] placeholder-[#d1b2a1]/70 focus:outline-none focus:border-[#d1b2a1] focus:ring-2 focus:ring-[#d1b2a1]/20 transition-all'
                     value={searchValue}
                     onChange={handleInputChange}
                 />
                 <button 
                     type="submit"
-                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-green-800 hover:bg-green-900 text-white px-6 py-3 rounded-full cursor-pointer z-10"
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-[#d1b2a1] hover:bg-[#c19f8e] text-[#3e2e28] font-semibold px-6 py-3 rounded-full cursor-pointer z-10 transition-all"
                 >
                     Search
                 </button>

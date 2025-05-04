@@ -2,9 +2,11 @@
 import { useEffect, useState } from "react";
 import Image from 'next/image';
 import TitleComponent from '../components/TitleComponent';
+import { useRouter } from 'next/navigation'; 
 
 function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const router = useRouter(); 
 
   const features = [
     "Filter by country or type",
@@ -61,7 +63,7 @@ function App() {
           <button
             className="mission-button"
             onClick={() => {
-              console.log("Starting the process...");
+              router.push('/main'); 
             }}
           >
             Get started

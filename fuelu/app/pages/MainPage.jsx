@@ -1,8 +1,10 @@
 "use client"
 import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import SearchBar from "../components/SearchBar";
 import TitleComponent from '../components/TitleComponent';
 import ImageCard from '../components/ImageCard';
+import Image from 'next/image';
 
 export default function MainPage(){
     const [searchValue, setSearchValue] = useState('')
@@ -17,6 +19,7 @@ export default function MainPage(){
     const [nextItems, setNextItems] = useState([])
     const [availableAreas, setAvailableAreas] = useState([])
     const itemsPerPage = 4
+    const router = useRouter()
     
     const totalPages = Math.ceil(filteredItems.length / itemsPerPage)
     const currentPage = Math.floor(currentIndex / itemsPerPage)
@@ -117,7 +120,7 @@ export default function MainPage(){
     }
 
     const handleCardClick = (item) => {
-        console.log("Card clicked:", item.name)
+        router.push(`/recipe?id=${item.id}`)
     }
 
     const handlePrevious = () => {
@@ -209,11 +212,11 @@ export default function MainPage(){
                                 className="group relative mx-1"
                                 aria-label="Go to page 1"
                             >
-                                <div className="w-3 h-3 rounded-full bg-slate-600 group-hover:bg-slate-400 transition-all duration-300" />
-                                <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-base text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity">1</span>
+                                <div className="w-3 h-3 rounded-full bg-[#d1b2a1]/40 group-hover:bg-[#d1b2a1]/60 transition-all duration-300" />
+                                <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-base text-[#d1b2a1]/70 opacity-0 group-hover:opacity-100 transition-opacity">1</span>
                             </button>
                             {startDot > 1 && (
-                                <span className="mx-1 text-slate-600">···</span>
+                                <span className="mx-1 text-[#d1b2a1]/60">···</span>
                             )}
                         </>
                     )}
@@ -234,17 +237,17 @@ export default function MainPage(){
                                 {isActive ? (
                                     <div className="relative">
                                         {/* Pulsing ring for active dot */}
-                                        <div className="absolute inset-0 w-4 h-4 bg-green-500 rounded-full animate-ping opacity-20" />
-                                        <div className="w-5 h-5 bg-green-500 rounded-full shadow-lg shadow-green-500/50" />
+                                        <div className="absolute inset-0 w-4 h-4 bg-[#d1b2a1] rounded-full animate-ping opacity-20" />
+                                        <div className="w-5 h-5 bg-[#d1b2a1] rounded-full shadow-lg shadow-[#d1b2a1]/50" />
                                     </div>
                                 ) : (
-                                    <div className={`rounded-full bg-slate-600 hover:bg-slate-400 transition-all duration-300
+                                    <div className={`rounded-full bg-[#d1b2a1]/40 hover:bg-[#d1b2a1]/60 transition-all duration-300
                                         ${Math.abs(pageIndex - currentPage) <= 1 ? 'w-2.5 h-2.5' : 'w-2 h-2'}`} 
                                     />
                                 )}
                                 {/* Page number*/}
                                 <span className={`absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-base 
-                                    ${isActive ? 'text-green-400 opacity-100' : 'text-slate-500 opacity-0 group-hover:opacity-100'} 
+                                    ${isActive ? 'text-[#d1b2a1] opacity-100' : 'text-[#d1b2a1]/70 opacity-0 group-hover:opacity-100'} 
                                     transition-opacity`}>
                                     {pageIndex + 1}
                                 </span>
@@ -255,15 +258,15 @@ export default function MainPage(){
                     {endDot < totalPages - 1 && (
                         <>
                             {endDot < totalPages - 2 && (
-                                <span className="mx-1 text-slate-600">···</span>
+                                <span className="mx-1 text-[#d1b2a1]/60">···</span>
                             )}
                             <button
                                 onClick={() => goToPage(totalPages - 1)}
                                 className="group relative mx-1"
                                 aria-label={`Go to page ${totalPages}`}
                             >
-                                <div className="w-3 h-3 rounded-full bg-slate-600 group-hover:bg-slate-400 transition-all duration-300" />
-                                <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-base text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity">{totalPages}</span>
+                                <div className="w-3 h-3 rounded-full bg-[#d1b2a1]/40 group-hover:bg-[#d1b2a1]/60 transition-all duration-300" />
+                                <span className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-base text-[#d1b2a1]/70 opacity-0 group-hover:opacity-100 transition-opacity">{totalPages}</span>
                             </button>
                         </>
                     )}
@@ -273,107 +276,126 @@ export default function MainPage(){
     }
 
     return(
-    <div className='flex flex-col items-center w-full'>
-        <TitleComponent />
-        <div className="flex flex-col items-center w-full">
-            <SearchBar onSearch={handleSearch}/>
+    <div className='relative min-h-screen'>
+        {/* Background Image */}
+        <Image
+            src="/assets/no2.jpg"
+            alt="Background image"
+            layout="fill"
+            objectFit="cover"
+            quality={100}
+            priority
+            className="fixed inset-0 z-0"
+        />
+        
+        {/* Content */}
+        <div className='relative z-10 flex flex-col items-center w-full min-h-screen'>
+            <div className="absolute inset-0 bg-black/50 z-0" /> {/* Slightly lighter overlay */}
             
-            {/* Available areas hint */}
-            <div className="mt-4 text-center">
-                <p className="text-slate-400 text-sm">Try searching by cuisine: Canadian, Italian, Chinese, Mexican, Indian, and more!</p>
-            </div>
-            <div className="mt-8 w-full relative max-w-7lg px-16">
-                {loading ? (
-                    <div className="flex justify-center items-center h-64">
-                        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-green-500"></div>
+            <div className="relative z-20 w-full">
+                <TitleComponent />
+                <div className="flex flex-col items-center w-full">
+                    <SearchBar onSearch={handleSearch}/>
+                    
+                    {/* Available areas hint */}
+                    <div className="mt-4 text-center">
+                        <p className="text-[#d1b2a1] text-sm font-medium">Try searching by cuisine: Canadian, Italian, Chinese, Mexican, Indian, and more!</p>
                     </div>
-                ) : error ? (
-                    <div className="text-center text-red-500">{error}</div>
-                ) : filteredItems.length === 0 ? (
-                    <div className="text-center text-slate-400">No meals found. Try a different search.</div>
-                ) : (
-                    <>
-
-                        {/*This is the left arrow*/}
-                        <button 
-                            onClick={handlePrevious}
-                            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-slate-800/90 hover:bg-slate-700 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg z-10 transition-all hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
-                            aria-label="Previous items"
-                            disabled={currentPage === 0}
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                            </svg>
-                        </button>
-                        
-                        {/*This is the div that holds the food*/}
-                        <div className="relative overflow-hidden h-[500px]">
-                            {/* Current items sliding out */}
-                            <div 
-                                className={`absolute inset-0 grid grid-cols-1 md:grid-cols-4 gap-8 transform
-                                    ${isAnimating ? 'transition-all duration-500 ease-in-out' : ''}
-                                    ${isAnimating && slideDirection === 'left' ? 'translate-x-full opacity-0' : ''}
-                                    ${isAnimating && slideDirection === 'right' ? '-translate-x-full opacity-0' : ''}
-                                    ${!isAnimating ? 'translate-x-0 opacity-100' : ''}
-                                `}
-                            >
-                                {displayItems.map((item) => (
-                                    <div 
-                                        key={item.id}
-                                        className="transform transition-all duration-300"
-                                    >
-                                        <ImageCard 
-                                            src={item.image} 
-                                            alt={item.alt} 
-                                            name={item.name} 
-                                            mealId={item.id}
-                                            onClick={() => handleCardClick(item)}
-                                        />
-                                    </div>
-                                ))}
+                    <div className="mt-8 w-full relative max-w-7lg px-16">
+                        {loading ? (
+                            <div className="flex justify-center items-center h-64">
+                                <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-[#d1b2a1]"></div>
                             </div>
-                            
-                            {/* Next items sliding in */}
-                            {isAnimating && (
-                                <div 
-                                    className={`absolute inset-0 grid grid-cols-1 md:grid-cols-4 gap-8 transform
-                                        ${slideDirection === 'left' ? 'animate-slide-in-from-left' : ''}
-                                        ${slideDirection === 'right' ? 'animate-slide-in-from-right' : ''}
-                                    `}
+                        ) : error ? (
+                            <div className="text-center text-red-400">{error}</div>
+                        ) : filteredItems.length === 0 ? (
+                            <div className="text-center text-[#d1b2a1]">No meals found. Try a different search.</div>
+                        ) : (
+                            <>
+
+                                {/*This is the left arrow*/}
+                                <button 
+                                    onClick={handlePrevious}
+                                    className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-[#3e2e28]/90 border border-[#d1b2a1]/30 hover:bg-[#3e2e28] hover:border-[#d1b2a1]/50 text-[#d1b2a1] w-12 h-12 rounded-full flex items-center justify-center shadow-lg z-10 transition-all hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    aria-label="Previous items"
+                                    disabled={currentPage === 0}
                                 >
-                                    {nextItems.map((item) => (
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                </button>
+                                
+                                {/*This is the div that holds the food*/}
+                                <div className="relative overflow-hidden h-[500px]">
+                                    {/* Current items sliding out */}
+                                    <div 
+                                        className={`absolute inset-0 grid grid-cols-1 md:grid-cols-4 gap-8 transform
+                                            ${isAnimating ? 'transition-all duration-500 ease-in-out' : ''}
+                                            ${isAnimating && slideDirection === 'left' ? 'translate-x-full opacity-0' : ''}
+                                            ${isAnimating && slideDirection === 'right' ? '-translate-x-full opacity-0' : ''}
+                                            ${!isAnimating ? 'translate-x-0 opacity-100' : ''}
+                                        `}
+                                    >
+                                        {displayItems.map((item) => (
+                                            <div 
+                                                key={item.id}
+                                                className="transform transition-all duration-300"
+                                            >
+                                                <ImageCard 
+                                                    src={item.image} 
+                                                    alt={item.alt} 
+                                                    name={item.name} 
+                                                    mealId={item.id}
+                                                    onClick={() => handleCardClick(item)}
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+                                    
+                                    {/* Next items sliding in */}
+                                    {isAnimating && (
                                         <div 
-                                            key={item.id}
-                                            className="transform transition-all duration-300"
+                                            className={`absolute inset-0 grid grid-cols-1 md:grid-cols-4 gap-8 transform
+                                                ${slideDirection === 'left' ? 'animate-slide-in-from-left' : ''}
+                                                ${slideDirection === 'right' ? 'animate-slide-in-from-right' : ''}
+                                            `}
                                         >
-                                            <ImageCard 
-                                                src={item.image} 
-                                                alt={item.alt} 
-                                                name={item.name} 
-                                                onClick={() => handleCardClick(item)}
-                                            />
+                                            {nextItems.map((item) => (
+                                                <div 
+                                                    key={item.id}
+                                                    className="transform transition-all duration-300"
+                                                >
+                                                    <ImageCard 
+                                                        src={item.image} 
+                                                        alt={item.alt} 
+                                                        name={item.name} 
+                                                        mealId={item.id}
+                                                        onClick={() => handleCardClick(item)}
+                                                    />
+                                                </div>
+                                            ))}
                                         </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>                        
+                                    )}
+                                </div>                        
 
-                        {/*This is the right arrow*/}
-                        <button 
-                            onClick={handleNext}
-                            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-slate-800/90 hover:bg-slate-700 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg z-10 transition-all hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
-                            aria-label="Next items"
-                            disabled={currentPage === totalPages - 1}
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
+                                {/*This is the right arrow*/}
+                                <button 
+                                    onClick={handleNext}
+                                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#3e2e28]/90 border border-[#d1b2a1]/30 hover:bg-[#3e2e28] hover:border-[#d1b2a1]/50 text-[#d1b2a1] w-12 h-12 rounded-full flex items-center justify-center shadow-lg z-10 transition-all hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    aria-label="Next items"
+                                    disabled={currentPage === totalPages - 1}
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
 
-                        {/*page indicator */}
-                        {PageIndicator()}
-                    </>
-                )}
+                                {/*page indicator */}
+                                {PageIndicator()}
+                            </>
+                        )}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
