@@ -34,10 +34,10 @@ FuelU is a web app that helps college students cook affordable, approachable mea
 
 ## 💻 Built With
 
-- **Next.js** – Frontend framework
-- **React** – UI library
-- **CSS Modules** – Styling
-- **The MealDB API** – Recipe data source
+- **Next.js**
+- **React**
+- **Tailwind CSS**
+- **TheMealDB API**
 
 ---
 
