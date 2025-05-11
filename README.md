@@ -2,7 +2,7 @@
 
 **Fueling Students for Success, One Bite at a Time.**
 
-FuelU is a web app that helps college students cook affordable, approachable meals at home. Our mission is to make healthy eating more accessible by providing easy-to-follow recipes that inspire confidence in the kitchen—reducing reliance on takeout and supporting student wellness.
+FuelU is a web app that helps college students cook affordable, approachable meals at home. Our mission is to make healthier eating more accessible by providing easy-to-follow recipes that inspire confidence in the kitchen—reducing reliance on takeout and supporting student wellness.
 
 ---
 
